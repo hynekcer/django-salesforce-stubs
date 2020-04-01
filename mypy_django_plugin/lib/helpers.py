@@ -320,6 +320,11 @@ def build_unannotated_method_args(method_node: FuncDef) -> Tuple[List[Argument],
 
 def copy_method_to_another_class(ctx: ClassDefContext, self_type: Instance,
                                  new_method_name: str, method_node: FuncDef) -> None:
+    if not hasattr(method_node, 'arguments'):
+        print("**** ERROR: method_node '{}' has no 'arguments' attribute and should be annotated"
+              .format(method_node.fullname)
+              )
+        return
     semanal_api = get_semanal_api(ctx)
     if method_node.type is None:
         if not semanal_api.final_iteration:
