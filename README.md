@@ -1,3 +1,18 @@
+**hynekcer / django-salesforce-stubs** is a clone of **django-stubs**.
+It is used for static type check with an alternate database backend
+[django-salesforce](https://github.com/django-salesforce/django-salesforce).
+
+The differences are:
+1. It annotates also some internal parts of `django.db`.
+2. It adds three custom methods specific to django-salesforce to models.manager and models.query.
+   These methods are implemented in a descendant module, but the smart features of django-stubs
+   require that typing generic classes must be declared in django stubs, not in descendant.
+   These thee added methods can be found after the line "\* for Salesforce".
+
+An additional idea is to annotate a general database backend to which all backends can be ckecked that are compatible with it and that is sufficient for the rest of `django.db`.
+
+----
+
 <img src="http://mypy-lang.org/static/mypy_light.svg" alt="mypy logo" width="300px"/>
 
 # Typesafe Django Framework
@@ -47,6 +62,8 @@ We rely on different `django` and `mypy` versions:
 
 | django-stubs | mypy version | django version | python version
 | ------------ | ---- | ---- | ---- |
+| 1.5.0 | 0.770 | ?     | ^3.6
+| 1.4.0 | 0.760 | ?     | ^3.6
 | 1.3.0 | 0.750 | 2.2.x | ^3.6
 | 1.2.0 | 0.730 | 2.2.x | ^3.6
 | 1.1.0 | 0.720 | 2.2.x | ^3.6
