@@ -131,6 +131,9 @@ class QuerySet(_BaseQuerySet[_T], Collection[_T], Reversible[_T], Sized):
     @overload
     def __getitem__(self: _QS, s: slice) -> _QS: ...
     def __reversed__(self) -> Iterator[_T]: ...
+    # **PRIVATE **
+    # parameter "klass" is only in an old Django <= 1.11
+    def _clone(self: _QS, klass: Optional[Type[_QS]] = None) -> _QS: ...
 
 _Row = TypeVar("_Row", covariant=True)
 
