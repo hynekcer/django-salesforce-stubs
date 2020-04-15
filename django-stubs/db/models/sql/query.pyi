@@ -2,6 +2,7 @@ import collections
 from collections import OrderedDict, namedtuple
 from typing import Any, Callable, Dict, Iterator, List, Optional, Sequence, Set, Tuple, Type, Union, Iterable
 
+from django.db import models
 from django.db.models.lookups import Lookup, Transform
 from django.db.models.query_utils import PathInfo, RegisterLookupMixin
 from django.db.models.sql.compiler import SQLCompiler
@@ -182,6 +183,9 @@ class Query:
         self, lookups: Sequence[str], lhs: Union[RegisterLookupMixin, Query], rhs: Optional[Query]
     ) -> Lookup: ...
     def try_transform(self, lhs: Union[RegisterLookupMixin, Query], name: str) -> Transform: ...
+
+    def add_annotation(self, annotation: models.aggregates.Aggregate, alias: str, is_summary: bool) -> Dict[str, Any]: ...
+    def get_aggregation(self, using: str, added_aggregate_names: Iterable[str]) -> Dict: ...
 
 class JoinPromoter:
     connector: str = ...

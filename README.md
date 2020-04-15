@@ -1,15 +1,19 @@
-**hynekcer / django-salesforce-stubs** is a clone of **django-stubs**.
+**hynekcer / django-salesforce-stubs** is a clone of **django-stubs**
+with an added "**salesforce**" branch that is here a default branch.
 It is used for static type check with an alternate database backend
 [django-salesforce](https://github.com/django-salesforce/django-salesforce).
 
-The differences are:
+The differences of "salesforce" branch are:
 1. It annotates also some internal parts of `django.db`.
-2. It adds three custom methods specific to django-salesforce to models.manager and models.query.
-   These methods are implemented in a descendant module, but the smart features of django-stubs
-   require that typing generic classes must be declared in django stubs, not in descendant.
-   These thee added methods can be found after the line "\* for Salesforce".
+2. It adds three custom methods specific to django-salesforce to models/manager.pyi and models/query.pyi
+   These methods are implemented in a descendant module in "django-salesforce" package, but the smart features of django-stubs
+   require that typing of generic classes must be declared in django-stubs, not in descendant classes.
+   These thee added methods can be found in the source after a line `# for Salesforce`.
+3. The version number is with an added fourth digit that is an incremental version
+   important for dependency of django-salesforce annotations on django-salesforce-stubs.
+   It will be never on PyPi.
 
-An additional idea is to annotate a general database backend to which all backends can be ckecked that are compatible with it and that is sufficient for the rest of `django.db`.
+An additional not yet implemented idea is to annotate a general database backend to which all backends can be ckecked that are compatible with it and that is sufficient for the rest of `django.db`.
 
 ----
 
@@ -41,7 +45,7 @@ To make `mypy` happy, you will need to add:
 [mypy]
 plugins =
     mypy_django_plugin.main
-    
+
 [mypy.plugins.django-stubs]
 django_settings_module = "myproject.settings"
 ```
@@ -87,15 +91,15 @@ But, it does not make any sense to use this project without `mypy`.
 
 ### mypy crashes when I run it with this plugin installed
 
-Current implementation uses Django runtime to extract models information, so it will crash, if your installed apps or `models.py` is not correct. For this same reason, you cannot use `reveal_type` inside global scope of any Python file that will be executed for `django.setup()`. 
+Current implementation uses Django runtime to extract models information, so it will crash, if your installed apps or `models.py` is not correct. For this same reason, you cannot use `reveal_type` inside global scope of any Python file that will be executed for `django.setup()`.
 
-In other words, if your `manage.py runserver` crashes, mypy will crash too. 
+In other words, if your `manage.py runserver` crashes, mypy will crash too.
 You can also run `mypy` with [`--tb`](https://mypy.readthedocs.io/en/stable/command_line.html#cmdoption-mypy-show-traceback)
 option to get extra information about the error.
 
 ### I cannot use QuerySet or Manager with type annotations
 
-You can get a `TypeError: 'type' object is not subscriptable` 
+You can get a `TypeError: 'type' object is not subscriptable`
 when you will try to use `QuerySet[MyModel]` or `Manager[MyModel]`.
 
 This happens because Django classes do not support [`__class_getitem__`](https://www.python.org/dev/peps/pep-0560/#class-getitem) magic method.
