@@ -1,17 +1,19 @@
 **hynekcer / django-salesforce-stubs** is a clone of **django-stubs**
-with an added "**salesforce**" branch that is here a default branch.
+with the added "**salesforce**" branch that is a default branch here.
 It is used for static type check with an alternate database backend
 [django-salesforce](https://github.com/django-salesforce/django-salesforce).
 
-The differences of "salesforce" branch are:
+The differences of the "salesforce" branch are:
 1. It annotates also some internal parts of `django.db`.
-2. It adds three custom methods specific to django-salesforce to models/manager.pyi and models/query.pyi
+2. It adds a few custom methods specific for django-salesforce to models/manager.pyi and models/query.pyi
    These methods are implemented in a descendant module in "django-salesforce" package, but the smart features of django-stubs
    require that typing of generic classes must be declared in django-stubs, not in descendant classes.
-   These thee added methods can be found in the source after a line `# for Salesforce`.
+   These added methods can be found in the source after a line `# for Salesforce`.
 3. The version number is with an added fourth digit that is an incremental version
    important for dependency of django-salesforce annotations on django-salesforce-stubs.
-   It will be never on PyPi.
+   It will be never on PyPi. The actual install link depends on django-salesforce version
+   and can be found there in "tox.ini" on a line similar to
+   `git+https://github.com/hynekcer/django-salesforce-stubs.git@v1.5.0.1#django-stubs`&nbsp;.
 
 An additional not yet implemented idea is to annotate a general database backend to which all backends can be ckecked that are compatible with it and that is sufficient for the rest of `django.db`.
 
@@ -27,6 +29,11 @@ An additional not yet implemented idea is to annotate a general database backend
 
 This package contains [type stubs](https://www.python.org/dev/peps/pep-0561/) and a custom mypy plugin to provide more precise static types and type inference for Django framework. Django uses some Python "magic" that makes having precise types for some code patterns problematic. This is why we need this project. The final goal is to be able to get precise types for most common patterns.
 
+Contributing to this fork:
+
+- Issues are accepted if something that worked in django-stubs would not work in django-salesforce-stubs.
+- Issues that are the same in in the original django-stubs should be directed there.
+- Issues related to Salesforce (all other issues) are accepted only with a pull request that fixes it. (no capacity for them probably)
 
 ## Installation
 
